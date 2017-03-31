@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="modalType">
+      <ion-segment-button value="legay">
+        乐鬼
+      </ion-segment-button>
+      <ion-segment-button value="weixin">
+        宝应人
+      </ion-segment-button>
+      <ion-segment-button value="laoruan">
+        瞎说
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div [ngSwitch]="modalType">
+    <div *ngSwitchCase="'legay'">
+      <ion-card *ngFor="let i of legayList">
+        <ion-item>
+          <ion-avatar item-left (click)="getToCahtWithUser(i)">
+            <img src="{{i.user.imgUrl}}">
+          </ion-avatar>
+          <h2>{{i.user.nickname}}</h2>
+          <p>{{i.createdAt}}</p>
+        </ion-item>
+
+       <img src="{{i.url+'?imageMogr2/thumbnail/500x'}}" *ngIf="i.url">
+        <ion-card-content>
+          <p>{{i.content}}</p>
+        </ion-card-content>
+      </ion-card>
+    </div>
+    <div *ngSwitchCase="'weixin'">
+
+      <ion-list>
+        <ion-item *ngFor="let i of weixinList">
+          <ion-thumbnail item-left>
+            <img src="{{i.image}}">
+          </ion-thumbnail>
+          <h2>{{i.title}}</h2>
+
+          <button ion-button clear item-right (click)="getToBower(i.url)">详情</button>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <div *ngSwitchCase="'laoruan'" class="laoruan">
+      <ion-card *ngFor="let i of laoruanList">
+        <img src="assets/img/header.jpg" class="header-img">
+        <img src="assets/img/card-saopaolo.png" />
+
+        <!--<div class="card-title">São Paulo</div>-->
+        <div class="card-subtitle">{{i.content}}</div>
+      </ion-card>
+    </div>
+
+  </div>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

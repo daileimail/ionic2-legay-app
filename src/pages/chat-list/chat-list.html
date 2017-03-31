@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>最近联系</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="list-avatar-page">
+  <ion-list>
+    <ion-item *ngFor="let i of chatList " (click)="gotoChatContent(i)">
+      <ion-avatar item-left>
+        <img src="{{i.imgUrl}}">
+      </ion-avatar>
+      <h2>{{i.nickname}}</h2>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
